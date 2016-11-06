@@ -1,5 +1,6 @@
 #To-Do
-- [ ] a task list item
+
+- [ ] a task list
 - [ ] list syntax required
 - [ ] normal **formatting**, @mentions, #1234 refs
 - [ ] incomplete
