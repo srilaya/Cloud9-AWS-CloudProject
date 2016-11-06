@@ -11,3 +11,7 @@ mysqlinstance.cefgbrn9gwfw.us-west-2.rds.amazonaws.com:3306
 
 username: root                        
 password: Cloud92016
+
+bhavesh ec2 instance
+ec2-35-161-156-10.us-west-2.compute.amazonaws.com (35.161.156.10)
+
