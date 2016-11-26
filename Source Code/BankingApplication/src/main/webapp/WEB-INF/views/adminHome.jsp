@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page import="com.neu.edu.wtp.utility.SessionCounter"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -77,7 +78,14 @@
 
 	<div class="container">
 		<div class="row">
+			<div class="col-lg-12">
+							<%
+								SessionCounter counter = (SessionCounter) session.getAttribute(SessionCounter.COUNTER);
+							%>
 
+							Number of online user(s):
+							<%=counter.getActiveSessionNumber()%>
+			</div>
 			<div class="col-lg-12">
 				<div class="panel with-nav-tabs panel-info">
 					<div class="panel-heading">
