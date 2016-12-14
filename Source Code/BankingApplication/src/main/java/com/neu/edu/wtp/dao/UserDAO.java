@@ -130,7 +130,7 @@ public User getUserByUserId(long id){
 			String gender, String dateOfBirth) {
 		try {
 			
-			System.out.println("In Create Employee DAO");
+//			System.out.println("In Create Employee DAO");
 
 			User user = new User(userName, PasswordEncryption.encrypt(password));
 			user.setUserType(UserType.Employee);
@@ -142,7 +142,7 @@ public User getUserByUserId(long id){
 			getSession().save(user);
 			commit();
 			close();
-			System.out.println(user.getFirstName());
+//			System.out.println(user.getFirstName());
 			return user;
 		} catch (HibernateException he) {
 			he.printStackTrace();
@@ -204,9 +204,9 @@ public User getUserByUserId(long id){
 			listOfUsers = (ArrayList<User>) q.list();
 			commit();
 			close();
-			for (User u : listOfUsers) {
-				System.out.println("-------------------" + u.getUserName());
-			}
+//			for (User u : listOfUsers) {
+////				System.out.println("-------------------" + u.getUserName());
+//			}
 			return listOfUsers;
 		} catch (HibernateException he) {
 			he.printStackTrace();
@@ -237,9 +237,9 @@ public User getUserByUserId(long id){
 			// .add(Restrictions.ilike("userName", username + "%",
 			// MatchMode.ANYWHERE)).list();
 
-			for (User u : list) {
-				System.out.println("-------------------" + u.getUserName());
-			}
+//			for (User u : list) {
+//				System.out.println("-------------------" + u.getUserName());
+//			}
 
 			commit();
 			close();

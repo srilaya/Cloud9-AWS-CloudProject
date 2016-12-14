@@ -24,21 +24,16 @@
 	<bean id="bankValidator" class="com.neu.edu.wtp.Validators.BankValidator"></bean>
 	<bean id="cardValidator" class="com.neu.edu.wtp.Validators.CardValidator"></bean>
 	<bean id="passwordValidator" class="com.neu.edu.wtp.Validators.PasswordValidator"></bean>
+	<!-- <bean id="sessionCounter" class="com.neu.edu.wtp.utility.SessionCount"></bean> -->
 
 	<bean id="customerValidator" class="com.neu.edu.wtp.Validators.CustomerValidator">
 		<property name="passwordStrengthRegEx">
 			<bean id="passwordStrengthRegEx" class="com.neu.edu.wtp.utility.PasswordStrengthRegEx"></bean>
 		</property>
 	</bean>
-
-
 	<bean id="chequeDepositRequestDAO" class="com.neu.edu.wtp.dao.ChequeDepositRequestDAO"></bean>
 	<bean id="fileUploadUtility" class="com.neu.edu.wtp.utility.FileUploadUtility"></bean>
 	<bean id="emailUtility" class="com.neu.edu.wtp.utility.EmailUtility"></bean>
 	<bean id="randomNumberUtility" class="com.neu.edu.wtp.utility.RandomNumberUtility"></bean>
 	<bean id="passwordEncryption" class="com.neu.edu.wtp.utility.PasswordEncryption"></bean>
-
-
-
-
 </beans>

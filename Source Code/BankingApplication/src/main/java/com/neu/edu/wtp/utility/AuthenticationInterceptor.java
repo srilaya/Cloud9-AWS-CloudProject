@@ -1,5 +1,7 @@
 package com.neu.edu.wtp.utility;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,8 +30,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor{
 		// TODO Auto-generated method stub
 		HttpSession session=req.getSession();
 		//RequestDispatcher requestDispatcher;
-		System.out.println("Session------------------>"+session);
-		System.out.println("Session ID--------------->"+session.getId());
+//		System.out.println("Session------------------>"+session);
+//		System.out.println("Session ID--------------->"+session.getId());
+//		System.out.println((String)session.getAttribute("user") + " - "+ req.getParameter("userName"));
+//		System.out.println((String)session.getAttribute("userName") + "Time :"+ new Date(System.currentTimeMillis()));
 		if(session.getAttribute("user")==null){
 			
 			return true;

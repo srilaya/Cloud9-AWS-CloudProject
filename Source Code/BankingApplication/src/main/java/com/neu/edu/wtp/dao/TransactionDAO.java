@@ -26,13 +26,13 @@ public class TransactionDAO extends DAO {
 	}
 
 	public Transaction createTransaction(Map<String, String> param) {
-		System.out.println("Inside Transaction DAO");
+//		System.out.println("Inside Transaction DAO");
 		Long fromAccount = Long.parseLong(param.get("fromAccount"));
 		Long toAccount = Long.parseLong(param.get("toAccount"));
 		Float amount = Float.parseFloat(param.get("amount"));
 		String description = param.get("description");
-		System.out.println(
-				"From/To/Amount/Description" + fromAccount + "/" + toAccount + "/" + amount + "/" + description);
+//		System.out.println(
+//				"From/To/Amount/Description" + fromAccount + "/" + toAccount + "/" + amount + "/" + description);
 		try {
 			begin();
 			Transaction transaction = new Transaction();
@@ -86,7 +86,7 @@ public class TransactionDAO extends DAO {
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<Transaction> statement(long fromAccount) {
-		System.out.print("In DAO");
+//		System.out.print("In DAO");
 		ArrayList<Transaction> list = new ArrayList<Transaction>();
 
 		try {

@@ -3,8 +3,7 @@ package com.neu.edu.wtp.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-//import java.text.DateFormat;
-//import java.util.Date;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
@@ -12,21 +11,19 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionEvent;
 
 import org.hibernate.HibernateException;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,17 +39,21 @@ import com.neu.edu.wtp.pojo.User;
 import com.neu.edu.wtp.pojo.UserType;
 import com.neu.edu.wtp.utility.PasswordEncryption;
 import com.neu.edu.wtp.utility.PasswordStrengthRegEx;
+//import com.neu.edu.wtp.utility.SessionCount;
+
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
+	
+
+
 	@Autowired
 	@Qualifier("userDAO")
 	UserDAO userDAO;
-	// UserDAO userDAO=new UserDAO();
-
+		
 	@Autowired
 	@Qualifier("customerDAO")
 	CustomerDAO customerDAO;
@@ -99,11 +100,12 @@ public class HomeController {
 	public String signIn(Locale locale, @ModelAttribute("user") User user, HttpServletRequest req,
 			HttpServletResponse res, BindingResult result) {
 		
+		
 		String uname = user.getUserName();
 		boolean isRememberMeChecked = false;
 		try {
 			String rememberMe = req.getParameter("rememberMe");
-			if (rememberMe.equals("rememberMe")) {
+			if (rememberMe!=null) {//.equals("rememberMe")
 				isRememberMeChecked = true;
 			}
 
@@ -127,13 +129,14 @@ public class HomeController {
 			if (result.hasErrors()) {
 				return "home";
 			}
+			System.out.println(uname+" "+new Date(System.currentTimeMillis()));
 			if (u.getUserType().equals(UserType.Customer)) {
 			
 				session = req.getSession();
 				Customer c = customerDAO.get(u.getUserName());
 				session.setAttribute("statementOffset", 1);
 				session.setAttribute("customer", c);
-
+				
 				return "customerHome";
 			}
 			if (u.getUserType().equals(UserType.Employee)) {
@@ -146,7 +149,7 @@ public class HomeController {
 
 				req.setAttribute("customer", customer);
 				req.setAttribute("bankAccount", bankAccount);
-				System.out.print(u.getFirstName() + "----------------" + u.getLastName());
+//				
 				ArrayList<ChequeDepositRequest> requestList = new ArrayList<ChequeDepositRequest>();
 				requestList = chequeDepositRequestDAO.getAll();
 				req.setAttribute("requestList", requestList);
@@ -157,6 +160,7 @@ public class HomeController {
 				return "managerHome";
 			}
 			if (u.getUserType().equals(UserType.Admin)) {
+				
 				req.getSession().setAttribute("adminUser", u);
 				req.getSession().setAttribute("username", u.getUserName());
 				req.setAttribute("employee", new User());
@@ -167,28 +171,11 @@ public class HomeController {
 		return "error";
 	}
 
-	// if(u==null){
-	// return "home";
-	// }
+
 
 	@RequestMapping(value = "/signIn.htm", method = RequestMethod.GET)
 	public String signInGET(Locale locale, @ModelAttribute("user") User user, HttpServletRequest req,
 			HttpServletResponse res, BindingResult result) {
-
-		// if(req.getSession().getAttribute("customer")!=null){
-		// signIn(locale,(User)req.getSession().getAttribute("customer"),req,res,result);
-		// }
-		// if(req.getSession().getAttribute("loggedInUser")!=null)
-		// {
-		// signIn(locale,(User)req.getSession().getAttribute("loggedInUser"),req,res,result);
-		// }
-		// if(req.getSession().getAttribute("adminUser")!=null)
-		// {
-		// signIn(locale,(User)req.getSession().getAttribute("adminUser"),req,res,result);
-		// }
-		// session.invalidate();
-		// return "home";
-
 		return "error1";
 	}
 
@@ -196,7 +183,7 @@ public class HomeController {
 	public String signUp(@ModelAttribute("user") User user, BindingResult result, HttpServletRequest req,
 			HttpServletResponse res) {
 		try {
-			System.out.println(user.getUserName() + "/" + user.getPassword() + "/" + user.getEmailId());
+//			System.out.println(user.getUserName() + "/" + user.getPassword() + "/" + user.getEmailId());
 
 			userDAO.create(user.getUserName(), user.getPassword(), user.getEmailId());
 
@@ -211,12 +198,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/logout.htm", method = RequestMethod.POST)
 	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-		// Authentication auth =
-		// SecurityContextHolder.getContext().getAuthentication();
-		// if (auth != null){
-		// new SecurityContextLogoutHandler().logout(request, response, auth);
-		// }
-
+		
 		request.getSession().invalidate();
 		User userNew = new User();
 		request.setAttribute("user", userNew);
@@ -231,7 +213,7 @@ public class HomeController {
 
 		String password = param.get("password");
 		String reenterPassword = param.get("reenterPassword");
-		System.out.println("password " + password + "/" + "reenterPassword " + reenterPassword);
+//		System.out.println("password " + password + "/" + "reenterPassword " + reenterPassword);
 		session = req.getSession();
 		PrintWriter out;
 		JSONObject json = new JSONObject();
@@ -239,7 +221,7 @@ public class HomeController {
 		if (password.equals(reenterPassword)) {
 			PasswordStrengthRegEx passwordReEx = new PasswordStrengthRegEx();
 			boolean satisfiesPolicy = passwordReEx.validate(password);
-			System.out.println(satisfiesPolicy);
+//			System.out.println(satisfiesPolicy);
 
 			if (satisfiesPolicy) {
 				

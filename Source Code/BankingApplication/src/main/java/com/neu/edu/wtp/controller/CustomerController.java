@@ -90,10 +90,12 @@ public class CustomerController {
 
 	HttpSession session;
 
+
 	@RequestMapping(value = "/makeTransfer.htm", method = RequestMethod.POST)
 	public String fundTransferLink(Model model) {
 		/// transaction
 		Transaction transaction = new Transaction();
+		
 		model.addAttribute("transaction", transaction);
 		return "fundTransfer";
 	}
@@ -213,39 +215,80 @@ public class CustomerController {
 
 		long accountNumber = Long.parseLong(param.get("accountNumber"));
 		String emailId = param.get("emailId");
-		String status;
+		//String status;
 		PrintWriter out;
-		boolean addingOtherCustomer = true;
+		//boolean addingOtherCustomer = true;
 		
 		try {
-			for (BankAccount ba : loggedInCustomer.getBankAccounts()) {
-				if (ba.getAccountNumber() == accountNumber) {
-					System.out.println(ba.getAccountNumber());
-					addingOtherCustomer = false;
-					break;
-				}
-			}
-
-			if (addingOtherCustomer) {
-				status = customerDAO.addBeneficiary(accountNumber, emailId, loggedInCustomer);
-				JSONObject json = new JSONObject();
-				out = res.getWriter();
-				if (status.equals("Beneficiary Added.")) {
-					json.put("returnMessage", status);
-					json.put("status", true);
-				} else {
-					// already added or no record found
-					json.put("returnMessage", status);
-					json.put("status", false);
-				}
-				out.print(json);
-			} else {
-				JSONObject json = new JSONObject();
-				out = res.getWriter();
-				json.put("returnMessage", "You cannot add yourself as Beneficiary.");
+//			for (BankAccount ba : loggedInCustomer.getBankAccounts()) {
+//				if (ba.getAccountNumber() == accountNumber) {
+//					System.out.println(ba.getAccountNumber());
+//					addingOtherCustomer = false;
+//					break;
+//				}
+//			}
+			JSONObject json = new JSONObject();
+			out = res.getWriter();
+			BankAccount bankAccount=bankAccountDAO.getBankAccount(accountNumber);
+			if(bankAccount==null){
+				json.put("returnMessage", "Incorrect beneficiary account number.");
 				json.put("status", false);
 				out.print(json);
+			}else{
+				if(!loggedInCustomer.getBankAccounts().contains(bankAccount)){
+					//status = customerDAO.addBeneficiary(accountNumber, emailId, loggedInCustomer);
+					
+					if(loggedInCustomer.getBeneficiaryList().contains(bankAccount)){
+						json.put("returnMessage", "Already Exists");
+						json.put("status", false);
+					}else{
+						customerDAO.addBeneficiary(accountNumber, emailId, loggedInCustomer);
+						json.put("returnMessage", "Added");
+						json.put("status", true);
+					}
+					
+					
+					
+//					if (status.equals("Beneficiary Added.")) {
+//						json.put("returnMessage", status);
+//						json.put("status", true);
+//					} else {
+//						// already added or no record found
+//						json.put("returnMessage", status);
+//						json.put("status", false);
+//					}
+					out.print(json);
+				}else {
+					json = new JSONObject();
+					out = res.getWriter();
+					json.put("returnMessage", "You cannot add yourself as Beneficiary.");
+					json.put("status", false);
+					out.print(json);
+				}
 			}
+			
+			
+
+//			if (addingOtherCustomer) {
+//				status = customerDAO.addBeneficiary(accountNumber, emailId, loggedInCustomer);
+//				JSONObject json = new JSONObject();
+//				out = res.getWriter();
+//				if (status.equals("Beneficiary Added.")) {
+//					json.put("returnMessage", status);
+//					json.put("status", true);
+//				} else {
+//					// already added or no record found
+//					json.put("returnMessage", status);
+//					json.put("status", false);
+//				}
+//				out.print(json);
+//			} else {
+//				JSONObject json = new JSONObject();
+//				out = res.getWriter();
+//				json.put("returnMessage", "You cannot add yourself as Beneficiary.");
+//				json.put("status", false);
+//				out.print(json);
+//			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -267,7 +310,7 @@ public class CustomerController {
 			return "fundTransfer";
 		}
 
-		System.out.println("Inside fund transfer method");
+//		System.out.println("Inside fund transfer method");
 		try {
 			Long fromAccount = Long.parseLong(param.get("fromAccount"));
 
@@ -278,9 +321,9 @@ public class CustomerController {
 			}
 
 			transaction = transactionDAO.createTransaction(param);
-			System.out.println("From/To/Amount/Description" + transaction.getFromAccount() + "/"
-					+ transaction.getToAccount() + "/" + transaction.getAmount() + "/"
-					+ transaction.getShortDescription() + "/" + transaction.getTransactionDate());
+//			System.out.println("From/To/Amount/Description" + transaction.getFromAccount() + "/"
+//					+ transaction.getToAccount() + "/" + transaction.getAmount() + "/"
+//					+ transaction.getShortDescription() + "/" + transaction.getTransactionDate());
 			bankAccountDAO.updateAccountsAfterTrasaction(transaction.getFromAccount(), transaction.getToAccount(),
 					transaction.getAmount());
 			Customer customer = (Customer) session.getAttribute("customer");
@@ -384,7 +427,7 @@ public class CustomerController {
 
 		session = req.getSession();
 		int offset = (Integer) session.getAttribute("statementOffset");
-		System.out.println("OFFSET" + offset);
+//		System.out.println("OFFSET" + offset);
 		List<Transaction> paginatedList = transactionDAO.paginateTransaction(offset,
 				Long.parseLong(param.get("forAccount")));
 		offset++;
@@ -402,8 +445,8 @@ public class CustomerController {
 		req.setAttribute("statement", paginatedList);
 		req.setAttribute("customerAccountNumber", param.get("forAccount"));
 		for (Transaction t : paginatedList) {
-			System.out.println(t.getAmount() + "/" + t.getFromAccount() + "/" + t.getToAccount() + "/"
-					+ t.getShortDescription() + "/" + t.getTransactionId() + "/" + t.getTransactionDate());
+//			System.out.println(t.getAmount() + "/" + t.getFromAccount() + "/" + t.getToAccount() + "/"
+//					+ t.getShortDescription() + "/" + t.getTransactionId() + "/" + t.getTransactionDate());
 		}
 		return "viewStatement";
 
@@ -436,19 +479,19 @@ public class CustomerController {
 
 	@RequestMapping(value = "/generateNextStatement.htm", method = RequestMethod.POST)
 	public void generateNextStatement(HttpServletResponse res, HttpServletRequest req) {
-		System.out.println("In generate function---->");
+//		System.out.println("In generate function---->");
 
 		PrintWriter out;
 		JSONObject json = new JSONObject();
 		session = req.getSession();
 		int offset = (Integer) session.getAttribute("statementOffset");
-		System.out.println("statementOffset---->" + offset);
+//		System.out.println("statementOffset---->" + offset);
 		long forAccount = (Long) session.getAttribute("customerAccountNumber");
-		System.out.println("customerAccountNumber--->" + forAccount);
+//		System.out.println("customerAccountNumber--->" + forAccount);
 		List<Transaction> paginatedList = transactionDAO.paginateTransaction(offset, forAccount);
 		offset++;
-		System.out.println(offset);
-		System.out.println("Paginated List---->");
+//		System.out.println(offset);
+//		System.out.println("Paginated List---->");
 		ArrayList<Transaction> listForJson = new ArrayList<Transaction>();
 
 		for (Transaction t : paginatedList) {
@@ -463,8 +506,8 @@ public class CustomerController {
 
 			listForJson.add(tran);
 
-			System.out.println(t.getAmount() + "/" + t.getFromAccount() + "/" + t.getToAccount() + "/"
-					+ t.getShortDescription() + "/" + t.getTransactionId() + "/" + t.getTransactionDate());
+//			System.out.println(t.getAmount() + "/" + t.getFromAccount() + "/" + t.getToAccount() + "/"
+//					+ t.getShortDescription() + "/" + t.getTransactionId() + "/" + t.getTransactionDate());
 		}
 		session.setAttribute("statementOffset", offset);
 		res.setHeader("Content-Type", "application/json");
@@ -493,10 +536,10 @@ public class CustomerController {
 			Model model, @RequestParam Map<String, String> param, @ModelAttribute("cdr") ChequeDepositRequest cdr,
 			HttpServletRequest request) {
 
-		System.out.println("Context Path" + request.getContextPath());
+//		System.out.println("Context Path" + request.getContextPath());
 		session = request.getSession();
 
-		System.out.println(imageName);
+//		System.out.println(imageName);
 		Customer customer = (Customer) session.getAttribute("customer");
 		try {
 			String newName = fileUploadUtility.upImage(imageName, file);
@@ -540,7 +583,7 @@ public class CustomerController {
 	}
 
 	/* 
-	 * Whenever a new card is added of the transaction is done, the user account
+	 * Whenever a new card is added or the transaction is done, the user account
 	 should reflect the changes. If I do not do the reload of customer object in
 	 session, changes are not relfected.Hence this boiler-plate code is written
 	 separately

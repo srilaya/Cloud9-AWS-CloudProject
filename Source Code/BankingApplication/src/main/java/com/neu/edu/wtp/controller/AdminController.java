@@ -81,18 +81,18 @@ public class AdminController {
 
 
 
-	@RequestMapping(value = "/adminHome.htm", method = RequestMethod.POST)
-	public ModelAndView returnHome(/*
-	 * Locale locale, @ModelAttribute("user")
-	 * User user,HttpServletRequest
-	 * req,HttpServletResponse res
-	 */) {
-		ModelAndView mv = new ModelAndView();
-		User user = new User();
-		mv.addObject("employee", user);
-		mv.setViewName("adminHome");
-		return mv;
-	}
+//	@RequestMapping(value = "/adminHome.htm", method = RequestMethod.POST)
+//	public ModelAndView returnHome(/*
+//	 * Locale locale, @ModelAttribute("user")
+//	 * User user,HttpServletRequest
+//	 * req,HttpServletResponse res
+//	 */) {
+//		ModelAndView mv = new ModelAndView();
+//		User user = new User();
+//		mv.addObject("employee", user);
+//		mv.setViewName("adminHome");
+//		return mv;
+//	}
 
 	@RequestMapping(value = "/adminHome.htm", method = RequestMethod.GET)
 	public String returnHomeGet(/*
@@ -111,6 +111,7 @@ public class AdminController {
 		List<User> usersList;
 		PrintWriter out;
 		try {
+
 			res.setHeader("content-Type", "application/json");
 
 			usersList = userDAO.getListOfUsers(param.get("searchKey"));

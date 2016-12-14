@@ -55,8 +55,7 @@
 				Signed in as <a href="#" class="navbar-link">${requestScope.customer.firstName}
 					${requestScope.customer.lastName}</a>
 			</p>
-			<br>
-			<br>
+			<br> <br>
 		</div>
 	</div>
 	</nav>
@@ -95,7 +94,8 @@
 								<a>Fund Transfer</a>
 							</h4>
 						</div>
-						<form:form action="fundTransfer.htm" commandName="transaction" method="POST">
+						<form:form action="fundTransfer.htm" commandName="transaction"
+							method="POST">
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-lg-4">
@@ -139,9 +139,11 @@
 										</select>
 									</div>
 									<div class="col-lg-4">
-										Amount<br> <form:input path="amount" type="text" name="amount" required="" /><br>
-										<font color="red"><form:errors path="*"/></font>
-										<font color="red"> ${requestScope.transferError} </font>
+										Amount<br>
+										<form:input path="amount" type="text" name="amount"
+											required="" />
+										<br> <font color="red"><form:errors path="*" /></font> <font
+											color="red"> ${requestScope.transferError} </font>
 
 									</div>
 								</div>
@@ -160,13 +162,20 @@
 								<br>
 								<div class="row">
 									<div class="col-lg-2">
-										<input type="submit" value="Submit" class="btn btn-primary" />
+
+										<c:choose>
+											<c:when
+												test="${sessionScope.customer.beneficiaryList.size()>0}">
+												<input type="submit" value="Submit" class="btn btn-primary" />
+											</c:when>
+											<c:when
+												test="${sessionScope.customer.beneficiaryList.size()==0}">No beneficiary available to transfer</c:when>
+										</c:choose>
+
+
 									</div>
 
 								</div>
-
-
-
 
 
 

@@ -114,4 +114,32 @@ public class BankAccount {
 		this.registeredCreditCardsList = registeredCreditCardsList;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (accountNumber ^ (accountNumber >>> 32));
+		result = prime * result + ((accountType == null) ? 0 : accountType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BankAccount other = (BankAccount) obj;
+		if (accountNumber != other.accountNumber)
+			return false;
+		if (accountType == null) {
+			if (other.accountType != null)
+				return false;
+		} else if (!accountType.equals(other.accountType))
+			return false;
+		return true;
+	}
+	
 }

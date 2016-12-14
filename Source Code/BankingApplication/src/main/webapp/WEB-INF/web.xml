@@ -24,6 +24,7 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+
 	</servlet>
 
 	<servlet-mapping>
@@ -31,7 +32,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<!--   <security-constraint>
+	  <!-- <security-constraint>
 		<web-resource-collection>
 			<web-resource-name>bankingapplication</web-resource-name>
 			<url-pattern>/*</url-pattern>
@@ -39,7 +40,23 @@
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
-	</security-constraint> -->
+	</security-constraint>  -->
+	
+	<!--   <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+  </listener>
+
+  <listener>
+	<listener-class>
+            com.neu.edu.wtp.utility.SessionCount
+        </listener-class>
+  </listener> -->
+
+    <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>
 
 
 

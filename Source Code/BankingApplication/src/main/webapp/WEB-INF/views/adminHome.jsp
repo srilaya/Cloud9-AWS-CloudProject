@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <%@ page import="com.neu.edu.wtp.utility.SessionCounter"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -78,14 +79,9 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-12">
-							<%
-								SessionCounter counter = (SessionCounter) session.getAttribute(SessionCounter.COUNTER);
-							%>
-
-							Number of online user(s):
-							<%=counter.getActiveSessionNumber()%>
-			</div>
+		<div class="col-lg-12">
+		<h1>Active users : ${sessionScope.session-count}</h1>
+		</div>
 			<div class="col-lg-12">
 				<div class="panel with-nav-tabs panel-info">
 					<div class="panel-heading">
@@ -112,7 +108,9 @@
 									<div class="col-lg-12">
 										<form:form action="addEmployee.htm" commandName="employee"
 											method="post">
-<br><h3>${requestScope.addErrorMessage}</h3></br>
+											<br>
+											<h3>${requestScope.addErrorMessage}</h3>
+											</br>
 											<table class="table">
 												<tr>
 													<td>First Name:</td>
@@ -170,8 +168,8 @@
 												</tr>
 												<tr>
 													<td>Gender</td>
-													<td><form:radiobutton required="" path="gender" value="M"
-															size="30" />Male<br> <form:radiobutton
+													<td><form:radiobutton required="" path="gender"
+															value="M" size="30" />Male<br> <form:radiobutton
 															path="gender" value="F" size="30" />Female</td>
 													<td><font color="red"><form:errors
 																path="gender" /></font></td>
@@ -228,6 +226,13 @@
 		</div>
 	</div>
 	<script>
+	
+	var source = new EventSource("");
+	source.onmessage = function(event) {
+	    document.getElementById("result").innerHTML += event.data + "<br>";
+	};
+	
+	
 		function showResult(str) {
 			if (str.length == 0) {
 				document.getElementById("livesearch").innerHTML = "";

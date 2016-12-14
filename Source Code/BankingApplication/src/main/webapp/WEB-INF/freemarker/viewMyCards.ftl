@@ -75,7 +75,11 @@ Debit Card:
 <table class="table table-striped">
 		<th>Card Name</th><th>Card Number</th><th>Delete</th>
 		<#list bankAccounts as account>
-		<tr><td>${account.associatedDebitCard.cardName} </td><td>${account.associatedDebitCard.cardNumber}</td><td><input type="submit" class="btn btn-danger" value="Delete"/></td></tr>
+			<#if account.registeredCreditCardsList?has_content>
+				<tr><td>${account.associatedDebitCard.cardName} </td><td>${account.associatedDebitCard.cardNumber}</td><td><input type="submit" class="btn btn-danger" value="Delete"/></td></tr>
+			<#else>
+			No card registered
+			</#if>	
 		 </#list>
 		 
 		</table>

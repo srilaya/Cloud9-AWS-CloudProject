@@ -81,7 +81,7 @@ public class CustomerDAO extends DAO {
 
 	public Customer create(Map<String, String> params) {
 		try {
-			System.out.println(params.get("firstName"));
+//			System.out.println(params.get("firstName"));
 			Customer customer = new Customer();
 			customer.setFirstName(params.get("firstName"));
 			customer.setLastName(params.get("lastName"));
@@ -142,7 +142,7 @@ public class CustomerDAO extends DAO {
 		debitCard.setPinCode(randomNumberUtility.generatePincode());
 		debitCard.setValidFrom(new LocalDate().minusDays(1));
 		String cardNum = Long.toString(randomNumberUtility.generateCardNumber());
-		System.out.println("############################" + cardNum);
+//		System.out.println("############################" + cardNum);
 		debitCard.setCardNumber(cardNum);
 		debitCard.setValidThrough(new LocalDate().plusYears(5));
 		debitCard.setCardName(cardName);
@@ -191,7 +191,7 @@ public class CustomerDAO extends DAO {
 	public String addBeneficiary(long accountNumber, String emailId, Customer loggedInCustomer) {
 
 		BankAccount beneficiaryAccount;
-		System.out.println("Inside DAO");
+//		System.out.println("Inside DAO");
 		try {
 
 			begin();
@@ -201,7 +201,7 @@ public class CustomerDAO extends DAO {
 
 			close();
 			if (beneficiaryAccount == null) {
-				return "No such record exists";
+				return null;
 			}
 
 			begin();
@@ -213,7 +213,7 @@ public class CustomerDAO extends DAO {
 			close();
 			return "Beneficiary Added.";
 
-		} catch (Exception he) {
+		} catch (HibernateException he) {
 			he.printStackTrace();
 			rollback();
 			return "Beneficiary already added in your account.";

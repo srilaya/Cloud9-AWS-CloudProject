@@ -1,13 +1,26 @@
 @CHARSET "ISO-8859-1";
 
-body{
-background-image: url("../../resources/images/boston.jpg");
+/* body{
+background-image: url("../../resources/images/homepage_backgroung.jpg");
 background-size:1364px 643px;
 background-repeat: no-repeat;
 background-position: center;
+} */
+
+#welcome{
+	color:white;
 }
 
-
+#loginButton{
+	top:75%;
+}
+body { 
+  background: url(../../resources/images/homepage_backgroung.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
 .prettyline {
 	height: 5px;

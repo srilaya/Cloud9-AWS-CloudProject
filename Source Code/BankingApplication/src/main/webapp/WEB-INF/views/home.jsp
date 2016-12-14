@@ -39,20 +39,22 @@
 	<!-- Button trigger modal -->
 
 	<div class="container">
-		<hr class="prettyline">
+		<!-- <hr class="prettyline">-->
 		<br>
 		<center>
+			<div class="col-lg-4 col-lg-offset-4" id="loginButton">
 			<h1>
-				<b id="welcome">Welcome</b>
+				<b id="welcome">Northeastern Bank</b>
 			</h1>
-			<h3>Please login by clicking on the below button</h3>
+			<!-- <h3>Please login by clicking on the below button</h3>-->
 			<br>
 			<button class="btn btn-primary btn-lg" href="#signup"
-				data-toggle="modal" data-target=".bs-modal-sm">Sign
-				In/Register</button>
+				data-toggle="modal" data-target=".bs-modal-sm">Sign In</button>
+			
+			</div>
 		</center>
 		<br>
-		<hr class="prettyline">
+		<!-- <hr class="prettyline">-->
 	</div>
 
 
