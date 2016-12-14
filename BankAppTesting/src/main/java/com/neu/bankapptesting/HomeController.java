@@ -46,12 +46,28 @@ public class HomeController {
 		System.out.println("Users" + users);
 		
 		
-		String path1 = req.getSession().getServletContext().getRealPath("/resources/test.py");
+		String path1 = req.getSession().getServletContext().getRealPath("/resources/test.py");		
 
-		//String path2 = path1.replace("\\","\\\\");
-		//path1.replace('\\','\\');
-		//path1=System.getProperty("user.dir");
+		String path = "G:\\test.py "+ users;
+		System.out.println(path);
+        try {
+        	Runtime.getRuntime().exec(new String[] { "cmd.exe", "/C", "\"; python "+path+"\"" });
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		return "home";
+	}
+	
+	@RequestMapping(value = "/fixedUsersTesting", method = RequestMethod.GET)
+	public String test(Locale locale, Model model,HttpServletRequest req) {
+	
+		int users = Integer.parseInt(req.getParameter("users"));
+		System.out.println("Users" + users);
+		
+		
+		String path1 = req.getSession().getServletContext().getRealPath("/resources/test.py");		
 
 		String path = "G:\\test.py "+ users;
 		System.out.println(path);

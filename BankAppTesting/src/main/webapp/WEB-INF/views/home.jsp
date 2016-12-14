@@ -1,9 +1,9 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
 <html>
 <head>
-	<title>Home</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome ${requestScope.customer.firstName}!</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style.css">
@@ -42,30 +42,55 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand" id="brand" href="#"> Northeastern Bank Testing Server
-			</a>
-			<br> <br>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" id="brand" href="#"> Northeastern Bank
+					Testing Server </a> <br> <br>
+			</div>
 		</div>
-	</div>
 	</nav>
-	
-	<div class = "container">
-		<div class = "row">
-		<div class= "col-sm-4 col-md-4 col-lg-4"></div>
-		<div class= "col-sm-4 col-md-4 col-lg-4">
-			<form action = "usersTesting" method = "GET">
-  <div class="form-group">
-    <label for=users>Input Number Of users to login:</label>
-    <input type="number" class="form-control" id="users" name = "users">
-  </div>
-  <input type="submit" class="btn btn-success" />
-</form>
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-sm-4 col-md-4 col-lg-4">
+
+				<form action="fixedUsersTesting" method="GET">
+				<input type ="hidden" value ="3" name = "users">
+					<input type="submit" class="btn btn-success" value="Login 3 Users" />
+				</form>
+
+				<form action="fixedUsersTesting" method="GET">
+				<input type ="hidden" value ="10" name = "users">
+					<input type="submit" class="btn btn-success" value="Login 10 Users" />
+				</form>
+
+				<form action="fixedUsersTesting" method="GET">
+				<input type ="hidden" value ="17" name = "users">
+					<input type="submit" class="btn btn-success" value="Login 17 Users" />
+				</form>
+
+				<form action="fixedUsersTesting" method="GET">
+				<input type ="hidden" value ="24" name = "users">
+					<input type="submit" class="btn btn-success" value="Login 24 Users" />
+				</form>
+
+			</div>
+
+			<div class="col-sm-4 col-md-4 col-lg-4">
+				<form action="usersTesting" method="GET">
+					<div class="form-group">
+						<label for=users>Input Number Of users to login:</label> <input
+							type="number" class="form-control" id="users" name="users">
+					</div>
+					<input type="submit" class="btn btn-success" />
+				</form>
+			</div>
+
 		</div>
-		<div class= "col-sm-4 col-md-4 col-lg-4"></div>
-		</div>
+
 	</div>
 
 </body>
