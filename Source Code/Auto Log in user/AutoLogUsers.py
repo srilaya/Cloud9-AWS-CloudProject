@@ -8,7 +8,7 @@ def startSessions(Anum):
     count = int(Anum)
     #display = Display(visible=0, size=(800, 600))
     #display.start()
-    browser = webdriver.Chrome('/Users/sumitdeshmukh/Downloads/chromedriver')
+    browser = webdriver.Chrome('/Users/saurabh/Desktop/chromedriver')
     url = 'http://northeasternbanking.us-west-2.elasticbeanstalk.com'
     browser.get(url)
     assert 'Home' in browser.title
