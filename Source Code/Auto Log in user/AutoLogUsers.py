@@ -11,8 +11,8 @@ def startSessions(Anum):
     browser = webdriver.Chrome('/Users/sumitdeshmukh/Downloads/chromedriver')
     url = 'http://northeasternbanking.us-west-2.elasticbeanstalk.com'
     browser.get(url)
-    assert 'Home' in browser.title 
-    user_list = ['ryan_29', 'noah_3', 'fritz_21', 'zeph_19', 'camilla_5', 'chase_14', 'noel_14', 'guy_10', 'igor_22', 'emi_1']
+    assert 'Home' in browser.title
+    user_list = ['hiram_16','theodore_8','fay_16','ryan_29','orla_9','wynne_8','garth_25','kitra_10','lilah_14','taylor_13','dante_23','sylvia_13','nyssa_7','carol_28','zoe_26','scott_28','jemima_1','emi_5','noah_3','fritz_21','armando_18','zeph_19','camilla_5','chase_14','graiden_14','noel_14','clare_26','guy_10','cameron_14','cameron_26','igor_22','kevyn_17','jessamine_8','rashad_17','emi_1','dante_25','quinn_31','yoshi_26','keith_28','camilla_16','griffith_19','zeus_20','marcia_26','helen_15','camille_7','quin_16','piper_4','rooney_1','elmo_2','hadassah_19','zahir_30','claudia_2','mallory_21','tasha_13','raphael_29','berk_29','kim_3','daria_24','allen_17','leroy_21','chandler_15','shelby_4','warren_15','salvador_28','jayme_30','dillon_2','shoshana_3','garrett_4','fiona_25','september_17','kyra_2','macey_3','hayden_30','troy_10','ulysses_22','summer_12','kathleen_2','jin_19','paul_9','macey_16','basil_12','pearl_22','quamar_21','minerva_4','imelda_24','aquila_23','ivana_5','davis_15','kato_9','anika_6','yetta_12','abdul_27','doris_21','price_28','dorothy_16','ann_10','hop_26','evan_16','debra_4']
     i = 0
     while(count > 0):
         button = browser.find_element_by_class_name('btn-primary')  # Find the search box
