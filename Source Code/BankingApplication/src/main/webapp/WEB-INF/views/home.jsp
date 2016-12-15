@@ -42,14 +42,11 @@
 		<!-- <hr class="prettyline">-->
 		<br>
 		<center>
-			<div class="col-lg-4 col-lg-offset-4" id="loginButton">
-			<h1>
-				<b id="welcome">Northeastern Bank</b>
-			</h1>
+			<div class="col-lg-4" id="loginButton">
 			<!-- <h3>Please login by clicking on the below button</h3>-->
 			<br>
 			<button class="btn btn-primary btn-lg" href="#signup"
-				data-toggle="modal" data-target=".bs-modal-sm">Sign In</button>
+				data-toggle="modal" style="margin-top: 500px;" data-target=".bs-modal-sm">Sign In</button>
 			
 			</div>
 		</center>
